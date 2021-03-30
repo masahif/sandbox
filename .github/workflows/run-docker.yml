@@ -6,4 +6,4 @@ jobs:
     steps:
       - name: run docker step
         id: run-docker
-        uses: sandbox/run-docker-action/@v1
+        uses: masahif/sandbox/run-docker-action/@v1
