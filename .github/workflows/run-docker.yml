@@ -1,0 +1,9 @@
+name: run-docker
+on: [push]
+jobs:
+  run-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run docker step
+        id: run-docker
+        uses: sandbox/run-docker-action/@v1
