@@ -4,6 +4,8 @@ jobs:
   run-docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
       - name: run docker step
         id: run-docker
-        uses: masahif/sandbox/run-docker-action/@v1
+        uses: ./run-docker-action
