@@ -25,4 +25,4 @@ RUN amazon-linux-extras enable python3.8 \
 RUN pip3.8 install cmake wheel
 
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
