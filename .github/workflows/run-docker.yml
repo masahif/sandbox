@@ -1,5 +1,8 @@
 name: run-docker
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*'
 jobs:
   run-docker:
     runs-on: ubuntu-latest
