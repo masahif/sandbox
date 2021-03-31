@@ -1,0 +1,42 @@
+name: run-docker
+on:
+  push:
+    tags:
+      - 'open3d_*'
+jobs:
+  run-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set env
+        run: |
+          echo ::set-env name=OPEN3D_TAG::$(echo ${GITHUB_REF:17})
+          echo ::set-env name=OPEN3D_VERSION::$(echo ${GITHUB_REF:18})
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: clone open3d
+        run: git clone --recursive -b ${{ env.OPEN3D_TAG }} https://github.com/intel-isl/Open3D.git
+      - name: run docker step
+        id: run-docker
+        uses: ./run-docker-action
+      - name: Create release
+        id: create-release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/lib/python_package/pip_package/open3d-${{ env.OPEN3D_VERSION }}-cp38-cp38-linux_x86_64.whl
+          asset_name: open3d-${{ env.OPEN3D_VERSION }}-cp38-cp38-linux_x86_64.whl
+          asset_content_type: application/zip
+   
