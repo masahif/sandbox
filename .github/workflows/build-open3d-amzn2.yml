@@ -1,4 +1,4 @@
-name: run-docker
+name: build-open3d-amzn2
 on:
   push:
     tags:
@@ -16,7 +16,7 @@ jobs:
       - name: clone open3d
         run: git clone --recursive -b ${{ env.OPEN3D_TAG }} https://github.com/intel-isl/Open3D.git
       - name: build open3d step
-        id: build open3d
+        id: build-open3d
         uses: ./build-open3d-amzn2
       - name: Create release
         id: create-release
