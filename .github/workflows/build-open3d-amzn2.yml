@@ -19,7 +19,7 @@ jobs:
         id: build-open3d
         uses: ./build-open3d-amzn2
       - name: Create release
-        id: create-release
+        id: create_release
         uses: actions/create-release@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
